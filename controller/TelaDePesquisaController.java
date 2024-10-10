@@ -18,29 +18,31 @@ public class TelaDePesquisaController extends TelaDePesquisaView {
     }
 
     public static void pesquisar() {
-        if (txtPesquisa.getText().trim().equals(txtUsuario) == false) {
+        String textoPesquisa =txtPesquisa.getText().trim();
+        if (textoPesquisa.equals(txtUsuario) == false) {
             limparCampos("");
+            TelaDePesquisaModel.pesquisarModel(txtPesquisa.getText().trim());
         }
     }
 
     public static void primeiroRegistro() {
-        limparCampos("Você está no primeiro registro.");
         TelaDePesquisaModel.primeiroRegistroModel(txtPesquisa.getText());
     }
 
     public static void registroAnterior() {
-        limparCampos("Registro anterior posicionado com sucesso.");
         TelaDePesquisaModel.registroAnteriorModel(txtPesquisa.getText(), txtId.getText(), txtNome.getText(), txtEmail.getText());    
     }
 
     public static void proximoRegistro() {
-        limparCampos("Próximo registro posicionado com sucesso.");
         TelaDePesquisaModel.proximoRegistroModel(txtPesquisa.getText(), txtId.getText(), txtNome.getText(), txtEmail.getText());
     }
 
     public static void ultimoRegistro() {
-        limparCampos("");
         TelaDePesquisaModel.ultimoRegistroModel(txtPesquisa.getText(), txtId.getText(), txtNome.getText(), txtEmail.getText());
+    }
+
+    public static void limparCamposController(String txt) {
+        limparCampos(txt);
     }
 
     public static void desabilitarTodos() {

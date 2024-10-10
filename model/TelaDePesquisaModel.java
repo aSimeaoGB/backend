@@ -15,7 +15,6 @@ public class TelaDePesquisaModel {
                 int rowNumbers = rstSqlPesquisa.getRow();
                 rstSqlPesquisa.first();
 
-                stmSqlPesquisa.close();
                 TelaDePesquisaController.notificarUsuario("Legal! Foi(Foram) encontrado(s) \" + rowNumbers + \" resultado(s).");
                 
                 TelaDePesquisaController.preencherCampos(rstSqlPesquisa.getString("id"), rstSqlPesquisa.getString("nome"),rstSqlPesquisa.getString("email"));
@@ -25,12 +24,12 @@ public class TelaDePesquisaModel {
                 if (rowNumbers > 1) {
                    TelaDePesquisaController.habilitarAvancar();
                 }
+                stmSqlPesquisa.close();
             } else {
                 TelaDePesquisaController.registrarPesquisa();
                 TelaDePesquisaController.desabilitarPesquisar();
                 stmSqlPesquisa.close();
                 TelaDePesquisaController.notificarUsuario("Poxa vida! Não foram encontrados resultados para: \"" + textoPesquisa + "\".");
-
             }
         } catch (Exception e) {
             System.err.println("Erro: " + e);
@@ -40,6 +39,7 @@ public class TelaDePesquisaModel {
 
     public static void primeiroRegistroModel(String textoPesquisa) {
         try {
+            TelaDePesquisaController.limparCamposController("Você está no primeiro registro.");
             Connection conexao = MySQLConnector.conectar();
             String strSqlPesquisa = "select * from `db_senac`.`tbl_senac` where `nome` like '%" + textoPesquisa + "%' or `email` like '%" + textoPesquisa + "%' order by `id` asc;";
             Statement stmSqlPesquisa = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -63,8 +63,7 @@ public class TelaDePesquisaModel {
 
     public static void registroAnteriorModel(String textoPesquisa, String idAtual, String nomeAtual, String emailAtual ) {
         try {
-            // TelaDePesquisaController.preencherCampos(textoPesquisa, textoPesquisa, textoPesquisa);
-         
+            TelaDePesquisaController.limparCamposController("Registro anterior posicionado com sucesso.");
             Connection conexao = MySQLConnector.conectar();
             String strSqlProximoRegistro = "select * from `db_senac`.`tbl_senac` where (`nome` like '%" + textoPesquisa + "%' or `email` like '%" + textoPesquisa + "%') and `id` < " + idAtual + " order by `id` desc;";
             Statement stmSqlProximoRegistro = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -87,8 +86,7 @@ public class TelaDePesquisaModel {
     }
     public static void proximoRegistroModel(String textoPesquisa, String idAtual, String nomeAtual, String emailAtual) {
         try {
-            //TelaDePesquisaController.preencherCampos(idAtual, nomeAtual, emailAtual);
-            
+            TelaDePesquisaController.limparCamposController("Próximo registro posicionado com sucesso.");
             Connection conexao = MySQLConnector.conectar();
             String strSqlProximoRegistro = "select * from `db_senac`.`tbl_senac` where (`nome` like '%" + textoPesquisa + "%' or `email` like '%" + textoPesquisa + "%') and `id` > " + idAtual + " order by `id` asc;";
             Statement stmSqlProximoRegistro = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -113,8 +111,7 @@ public class TelaDePesquisaModel {
 
     public static void ultimoRegistroModel(String textoPesquisa, String idAtual, String nomeAtual, String emailAtual) {
         try {
-            //TelaDePesquisaController.preencherCampos(idAtual, nomeAtual, emailAtual);
-
+            TelaDePesquisaController.limparCamposController("");
             Connection conexao = MySQLConnector.conectar();
             String strSqlProximoRegistro = "select * from `db_senac`.`tbl_senac` where `nome` like '%" + textoPesquisa + "%' or `email` like '%" + textoPesquisa + "%' order by `id` desc;";
             Statement stmSqlProximoRegistro = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
