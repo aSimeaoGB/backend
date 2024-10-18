@@ -140,6 +140,8 @@ public class TelaDeAtualizacaoView extends JFrame { // Classe TelaDeAtualizaçã
         return "<html><body>" + strTexto + "</body></html>";  // Retorna o texto formatado
     }
 
+    
+
     // Método principal para execução da aplicação
     public static void main(String[] args) {
         TelaDeAtualizacaoView appTelaDeAtualizacaoView = new TelaDeAtualizacaoView();  // Cria uma nova instância da tela
