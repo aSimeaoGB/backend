@@ -143,8 +143,9 @@ public class TelaDeAtualizacaoView extends JFrame { // Classe TelaDeAtualizaçã
     
 
     // Método principal para execução da aplicação
+    public static TelaDeAtualizacaoView appTelaDeAtualizacaoView;
     public static void main(String[] args) {
-        TelaDeAtualizacaoView appTelaDeAtualizacaoView = new TelaDeAtualizacaoView();  // Cria uma nova instância da tela
+        appTelaDeAtualizacaoView = new TelaDeAtualizacaoView();  // Cria uma nova instância da tela
         appTelaDeAtualizacaoView.setDefaultCloseOperation(EXIT_ON_CLOSE);  // Define a operação de fechamento
     }
 }

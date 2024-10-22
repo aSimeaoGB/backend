@@ -129,8 +129,9 @@ public class TelaDeRemoverView extends JFrame { // Classe TelaDeAtualização qu
     }
 
     // Método principal para execução da aplicação
+    public static TelaDeRemoverView appTelaDeRemoverView;
     public static void main(String[] args) {
-        TelaDeRemoverView appTelaDeRemoverView = new TelaDeRemoverView();  // Cria uma nova instância da tela
+        appTelaDeRemoverView = new TelaDeRemoverView();  // Cria uma nova instância da tela
         appTelaDeRemoverView.setDefaultCloseOperation(EXIT_ON_CLOSE);  // Define a operação de fechamento
     }
 }
