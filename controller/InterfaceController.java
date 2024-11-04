@@ -50,6 +50,6 @@ public class InterfaceController extends InterfaceView {
     }
     
     public static String gerarNomeAleatorio() {
-        return String.format("file-%d", Math.random());
+        return String.format("file-%s", Math.random());
     }
 }
