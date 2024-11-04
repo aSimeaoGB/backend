@@ -1,6 +1,6 @@
 package model;
-import controller.*;
 import java.sql.*;
+import controller.*;
 
 public class TelaDeLoginModel {
     public static void logarModel(String login, String senha) {
@@ -10,14 +10,15 @@ public class TelaDeLoginModel {
             Statement stmSqlLogin = conexao.createStatement();
             ResultSet rstSqlLogin = stmSqlLogin.executeQuery(strSqlLogin);
             if (rstSqlLogin.next()) {
-                TelaDeLoginController.notificarUsuario("Conectado com sucesso!!!");
+                TelaDeLoginController.notificarUsuario("Login realizado com sucesso!!!");
+                TelaDeLoginController.abrirTelaDeMenu();
             } else {
-                TelaDeLoginController.notificarUsuario("Login e/ou senha não encontrada! Por Fabor, verigique e tente novamente.");
+                TelaDeLoginController.notificarUsuario("Login e/ou senha não encontrados! Por favor, verifique e tente novamente.");
             }
             stmSqlLogin.close();
         } catch (Exception e) {
-            TelaDeLoginController.notificarUsuario("Hove um problema e não será possivel realizar o login agora. Por favor, tente novamente mais tarde.");
-            System.err.println("Veja o erro" + e);
+            TelaDeLoginController.notificarUsuario("Houve um problema e não será possível realizar o login agora. Por favor, tente novamente mais tarde.");
+            System.err.println("Veja o erro: " + e);
         }
     }
 }

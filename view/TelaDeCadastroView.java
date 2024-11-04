@@ -86,4 +86,7 @@ public class TelaDeCadastroView extends JFrame // criação da classe que herda 
         appTelaDeCadastroView = new TelaDeCadastroView();
         appTelaDeCadastroView.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+
+
+    
 }

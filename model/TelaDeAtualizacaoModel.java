@@ -23,17 +23,15 @@ public class TelaDeAtualizacaoModel {
         }
     }
 
-    public static void atualizarCadastroModel(String atualizarId, String atualizarNome, String atualizarEmail, String atualizarSenha) {
+    public static void atualizarCadastroModel(String atualizarId, String atualizarNome, String atualizarEmail, String atualizarSenha, String atualizarImagem) {
         try {
             Connection conexao = MySQLConnector.conectar();
-            String strSqlAtualizarId = "update `db_senac`.`tbl_senac` set " + atualizarNome + atualizarEmail + atualizarSenha + " where `id` = " + atualizarId + ";";
+            String strSqlAtualizarId = "update `db_senac`.`tbl_senac` set " + atualizarNome + atualizarEmail + atualizarSenha + atualizarImagem + " where `id` = " + atualizarId + ";";
             Statement stmSqlAtualizarId = conexao.createStatement();
             stmSqlAtualizarId.addBatch(strSqlAtualizarId);
             stmSqlAtualizarId.executeBatch();
-
             TelaDeAtualizacaoController.registrarAtualizacao();
             stmSqlAtualizarId.close();
-
             TelaDeAtualizacaoController.notificarUsuario("O id " + atualizarId + " foi atualizado com sucesso!");
         } catch (Exception e) {
             TelaDeAtualizacaoController.notificarUsuario("Não foi possível realizar a atualização! Por favor, tente novamente mais tarde.");
@@ -49,7 +47,6 @@ public class TelaDeAtualizacaoModel {
                 ResultSet rstSqlAtualizarCampos = stmSqlAtualizarCampos.executeQuery(strSqlAtualizarCampos);
                 if (rstSqlAtualizarCampos.next()) {
                     TelaDeAtualizacaoController.enviarCampos(rstSqlAtualizarCampos.getString("nome"), rstSqlAtualizarCampos.getString("email"), rstSqlAtualizarCampos.getString("senha"));
-                    
                     TelaDeAtualizacaoController.notificarUsuario("Campos atualizados com sucesso!");
                 } else {
                     TelaDeAtualizacaoController.notificarUsuario("Ops! Não foi encontrado o id selecionado. Por favor, verifique e tente novamente.");
