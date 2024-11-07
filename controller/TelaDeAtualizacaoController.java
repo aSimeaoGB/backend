@@ -84,10 +84,6 @@ public class TelaDeAtualizacaoController extends TelaDeAtualizacaoView {
         senhaAtual = String.valueOf(txtSenha.getPassword());
     }
 
-    public static void notificarUsuario(String txt) {
-        lblNotificacoes.setText(setHtmlFormat(txt));
-    }
-
     public static void registrarAtualizacao() {
         nomeAtual = txtNome.getText();
         emailAtual = txtEmail.getText();
@@ -132,6 +128,10 @@ public class TelaDeAtualizacaoController extends TelaDeAtualizacaoView {
 
         lblImagem.setIcon(imgCarregada);
         txtImagem.setText(fileName);
+    }
+
+    public static void notificarUsuario(String txt) {
+        lblNotificacoes.setText(setHtmlFormat(txt));
     }
 
     public static void removerImagem() {

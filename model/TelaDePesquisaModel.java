@@ -7,29 +7,29 @@ public class TelaDePesquisaModel {
     public static void pesquisarModel(String textoPesquisa) {
         try {
             Connection conexao = MySQLConnector.conectar();
-            String strSqlPesquisa = "select * from `db_senac`.`tbl_senac` where `nome` like '%"+ textoPesquisa + "%' or `email` like '%" + textoPesquisa+ "%' order by `id` asc;";
-            Statement stmSqlPesquisa = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            String strSqlPesquisa = "select * from `db_senac`.`tbl_senac` where `nome` like '%" + textoPesquisa + "%' or `email` like '%" + textoPesquisa + "%' order by `id` asc;";
+            Statement stmSqlPesquisa = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rstSqlPesquisa = stmSqlPesquisa.executeQuery(strSqlPesquisa);
             if (rstSqlPesquisa.next()) {
                 rstSqlPesquisa.last();
                 int rowNumbers = rstSqlPesquisa.getRow();
                 rstSqlPesquisa.first();
 
-                TelaDePesquisaController.notificarUsuario("Legal! Foi(Foram) encontrado(s) \" + rowNumbers + \" resultado(s).");
-                
-                TelaDePesquisaController.preencherCampos(rstSqlPesquisa.getString("id"), rstSqlPesquisa.getString("nome"),rstSqlPesquisa.getString("email"));
+                TelaDePesquisaController.notificarUsuario("Legal! Foi(Foram) encontrado(s) " + rowNumbers + " resultado(s).");
+
+                TelaDePesquisaController.preencherCampos(rstSqlPesquisa.getString("id"), rstSqlPesquisa.getString("nome"), rstSqlPesquisa.getString("email"));
                 TelaDePesquisaController.registrarPesquisa();
-                
+
                 TelaDePesquisaController.desabilitarPesquisar();
                 if (rowNumbers > 1) {
-                   TelaDePesquisaController.habilitarAvancar();
+                    TelaDePesquisaController.habilitarAvancar();
                 }
                 stmSqlPesquisa.close();
             } else {
                 TelaDePesquisaController.registrarPesquisa();
                 TelaDePesquisaController.desabilitarPesquisar();
-                stmSqlPesquisa.close();
                 TelaDePesquisaController.notificarUsuario("Poxa vida! Não foram encontrados resultados para: \"" + textoPesquisa + "\".");
+                stmSqlPesquisa.close();
             }
         } catch (Exception e) {
             System.err.println("Erro: " + e);
@@ -46,7 +46,7 @@ public class TelaDePesquisaModel {
             ResultSet rstSqlPesquisa = stmSqlPesquisa.executeQuery(strSqlPesquisa);
             if (rstSqlPesquisa.next()) {
                 TelaDePesquisaController.preencherCampos(rstSqlPesquisa.getString("id"), rstSqlPesquisa.getString("nome"), rstSqlPesquisa.getString("email"));
-                
+
                 TelaDePesquisaController.habilitarAvancar();
             } else {
                 TelaDePesquisaController.notificarUsuario("Poxa vida! Não foram encontrados resultados para: \"" + textoPesquisa + "\".");
@@ -61,7 +61,7 @@ public class TelaDePesquisaModel {
         }
     }
 
-    public static void registroAnteriorModel(String textoPesquisa, String idAtual, String nomeAtual, String emailAtual ) {
+    public static void registroAnteriorModel(String textoPesquisa, String idAtual, String nomeAtual, String emailAtual) {
         try {
             TelaDePesquisaController.limparCamposController("Registro anterior posicionado com sucesso.");
             Connection conexao = MySQLConnector.conectar();
@@ -69,7 +69,7 @@ public class TelaDePesquisaModel {
             Statement stmSqlProximoRegistro = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rstSqlProximoRegistro = stmSqlProximoRegistro.executeQuery(strSqlProximoRegistro);
             if (rstSqlProximoRegistro.next()) {
-                TelaDePesquisaController.preencherCampos(strSqlProximoRegistro, textoPesquisa, strSqlProximoRegistro);
+                TelaDePesquisaController.preencherCampos(rstSqlProximoRegistro.getString("id"), rstSqlProximoRegistro.getString("nome"), rstSqlProximoRegistro.getString("email"));
                 TelaDePesquisaController.habilitarTodos();
             } else {
                 TelaDePesquisaController.preencherCampos(idAtual, nomeAtual, emailAtual);
@@ -84,11 +84,13 @@ public class TelaDePesquisaModel {
             System.err.println("Erro: " + e);
         }
     }
+
     public static void proximoRegistroModel(String textoPesquisa, String idAtual, String nomeAtual, String emailAtual) {
         try {
             TelaDePesquisaController.limparCamposController("Próximo registro posicionado com sucesso.");
             Connection conexao = MySQLConnector.conectar();
             String strSqlProximoRegistro = "select * from `db_senac`.`tbl_senac` where (`nome` like '%" + textoPesquisa + "%' or `email` like '%" + textoPesquisa + "%') and `id` > " + idAtual + " order by `id` asc;";
+            System.out.println(strSqlProximoRegistro);
             Statement stmSqlProximoRegistro = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rstSqlProximoRegistro = stmSqlProximoRegistro.executeQuery(strSqlProximoRegistro);
             if (rstSqlProximoRegistro.next()) {
@@ -120,9 +122,8 @@ public class TelaDePesquisaModel {
                 TelaDePesquisaController.preencherCampos(rstSqlProximoRegistro.getString("id"), rstSqlProximoRegistro.getString("nome"), rstSqlProximoRegistro.getString("email"));
 
                 TelaDePesquisaController.habilitarVoltar();
-                
-                TelaDePesquisaController.notificarUsuario("Você chegou ao último registro.");
 
+                TelaDePesquisaController.notificarUsuario("Você chegou ao último registro.");
             } else {
                 TelaDePesquisaController.preencherCampos(idAtual, nomeAtual, emailAtual);
 
@@ -137,5 +138,3 @@ public class TelaDePesquisaModel {
         }
     }
 }
-
-    

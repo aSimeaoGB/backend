@@ -33,6 +33,7 @@ public class TelaDeAtualizacaoModel {
             TelaDeAtualizacaoController.registrarAtualizacao();
             stmSqlAtualizarId.close();
             TelaDeAtualizacaoController.notificarUsuario("O id " + atualizarId + " foi atualizado com sucesso!");
+            // lblNotificacoes.setText("O id " + cbxId.getSelectedItem().toString() + " foi atualizado com sucesso!");
         } catch (Exception e) {
             TelaDeAtualizacaoController.notificarUsuario("Não foi possível realizar a atualização! Por favor, tente novamente mais tarde.");
             System.err.println("Erro: " + e);

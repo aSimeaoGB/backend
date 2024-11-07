@@ -189,6 +189,8 @@ public class TelaDePesquisaView extends JFrame {
         );
 
         setSize(250, 300);
+        ImageIcon img = new ImageIcon("./senac-logo.png");
+        setIconImage(img.getImage());
         setVisible(true);
         txtPesquisa.requestFocus();
     }
@@ -201,9 +203,9 @@ public class TelaDePesquisaView extends JFrame {
         } else {
             return false;
         }
-}
+    }
 
-    public static void limparCampos(String notificacao) {
+    public static void limparCampos(String notificacao) { // limparCampos("")
         btnPesquisar.setEnabled(false);
         txtId.setText("");
         txtNome.setText("");
@@ -212,7 +214,7 @@ public class TelaDePesquisaView extends JFrame {
         btnAnterior.setEnabled(false);
         btnProximo.setEnabled(false);
         btnUltimo.setEnabled(false);
-        if (notificacao.equals("") == false) {
+        if (notificacao.trim().length() > 0) {
             lblNotificacoes.setText(setHtmlFormat(notificacao));
         }
     }

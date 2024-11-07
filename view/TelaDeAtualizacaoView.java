@@ -1,6 +1,5 @@
 package view;
 import controller.*;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -42,64 +41,50 @@ public class TelaDeAtualizacaoView extends JFrame {
         super("Tela de Atualização");
         gbLayout = new GridBagLayout();
         setLayout(gbLayout);
-        gbConstraints = new GridBagConstraints(); // define o valor 
-        //setLayout(new GridLayout(7,1,5,5));
+        gbConstraints = new GridBagConstraints();
 
         lblId = new JLabel("Id:", SwingConstants.RIGHT);
-        //gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(lblId, 0,1,1,1);
+        addComponent(lblId,0,1,1,1);
 
         TelaDeAtualizacaoController.popularIds();
         cbxId = new JComboBox<String>(ids);
-        //gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(cbxId, 0,2,1,1);
+        addComponent(cbxId,0,2,1,1);
 
         lblImagem = new JLabel(InterfaceController.imgPadrao);
-        addComponent(lblImagem, 0,0,1,7);        
+        addComponent(lblImagem, 0, 0, 1, 7);
 
         btnCarregarImagem = new JButton("Carregar Imagem");
-        //gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(btnCarregarImagem, 1,1,1,1);
+        addComponent(btnCarregarImagem, 1, 1, 1, 1);
 
         btnRemoverImagem = new JButton("Remover Imagem");
-        //gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(btnRemoverImagem, 1,2,1,1);        
+        addComponent(btnRemoverImagem, 1, 2, 1, 1);
 
         lblNome = new JLabel("Nome:", SwingConstants.RIGHT);
-        //gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(lblNome, 2,1,1,1);
+        addComponent(lblNome, 2, 1, 1, 1);
 
         txtNome = new JTextField(tamanhoInputs);
-        gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(txtNome, 2,2,1,1);
+        addComponent(txtNome, 2, 2, 1, 1);
 
         lblEmail = new JLabel("Email:", SwingConstants.RIGHT);
-        //gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(lblEmail, 3,1,1,1);
+        addComponent(lblEmail, 3, 1, 1, 1);
 
         txtEmail = new JTextField(tamanhoInputs);
-        //gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(txtEmail, 3,2,1,1);
+        addComponent(txtEmail, 3, 2, 1, 1);
 
         lblSenha = new JLabel("Senha:", SwingConstants.RIGHT);
-        //gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(lblSenha, 4,1,1,1);
+        addComponent(lblSenha, 4, 1, 1, 1);
 
         txtSenha = new JPasswordField(tamanhoInputs);
-       // gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(txtSenha, 4,2,1,1);
+        addComponent(txtSenha, 4, 2, 1, 1);
 
         btnAtualizar = new JButton("Atualizar");
-        //gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(btnAtualizar,5,1,1,1);
+        addComponent(btnAtualizar, 5, 1, 1, 1);
 
         btnCancelar = new JButton("Cancelar");
-        //gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(btnCancelar, 5,2,1,1);
+        addComponent(btnCancelar, 5, 2, 1, 1);
 
         lblNotificacoes = new JLabel("Notificações", SwingConstants.CENTER);
-        //gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(lblNotificacoes, 6,1,2,1);
+        addComponent(lblNotificacoes, 6, 1, 2, 1);
 
         btnAtualizar.addActionListener(
             new ActionListener() {
@@ -124,7 +109,7 @@ public class TelaDeAtualizacaoView extends JFrame {
             @Override
                 public void itemStateChanged(ItemEvent event) {
                     if (event.getStateChange() == ItemEvent.SELECTED) {
-                        TelaDeAtualizacaoController.atualizarCampos(cbxId.getSelectedItem().toString());
+                        TelaDeAtualizacaoController.atualizarCampos(String.valueOf(cbxId.getSelectedItem()));
                     }
                 } 
             }
@@ -155,24 +140,29 @@ public class TelaDeAtualizacaoView extends JFrame {
         cbxId.requestFocus();
     }
 
-    public static String setHtmlFormat(String strTexto) {
-        return "<html><body>" + strTexto + "</body></html>";
+    public void addComponent(Component component, int row, int column, int width, int height) {
+        try {
+            if (height > 1 && height > 1) {
+                gbConstraints.fill = GridBagConstraints.BOTH;
+            } else if (height > 1) {
+                gbConstraints.fill = GridBagConstraints.VERTICAL;
+            } else {
+                gbConstraints.fill = GridBagConstraints.HORIZONTAL;
+            }
+
+            gbConstraints.gridy = row;
+            gbConstraints.gridx = column;
+            gbConstraints.gridwidth = width;
+            gbConstraints.gridheight = height;
+            gbLayout.setConstraints(component, gbConstraints);
+            add(component);
+        } catch (Exception e) {
+            System.err.println("Erro: " + e);
+        }
     }
 
-    public void addComponent(Component component, int row, int column, int width, int height) {
-        if (height > 1){
-            gbConstraints.fill = GridBagConstraints.BOTH;
-        } else {
-            gbConstraints.fill = GridBagConstraints.HORIZONTAL;
-        }
-        // onde
-        gbConstraints.gridy = row; // define a posição Y (vertical) linhas
-        gbConstraints.gridx = column; // define a posição X (horizontal) colunas
-        // o que e como
-        gbConstraints.gridwidth = width; //
-        gbConstraints.gridheight = height; // define a altura em relação a grade
-        gbLayout.setConstraints(component, gbConstraints); 
-        add(component);
+    public static String setHtmlFormat(String strTexto) {
+        return "<html><body>" + strTexto + "</body></html>";
     }
 
     public static TelaDeAtualizacaoView appTelaDeAtualizacaoView;

@@ -21,7 +21,7 @@ public class InterfaceController extends InterfaceView {
         + "\\" 
         + "view";
 
-    public static final Icon imgPadrao = new ImageIcon(new ImageIcon(localViewFolder + "\\imagem-padrao.jpg").getImage().getScaledInstance(100,100, Image.SCALE_DEFAULT));
+    public static final Icon imgPadrao = new ImageIcon(new ImageIcon(localViewFolder + "\\imagem-padrao.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
 
     public static void verificarApagarImagensInuteis() {
         final File folder = new File(localViewImgFolder);
@@ -36,7 +36,6 @@ public class InterfaceController extends InterfaceView {
                 listFilesForFolder(fileEntry);
             } else {
                 strFiles.add(fileEntry.getName());
-                // System.out.println(fileEntry.getName());
             }
         }
         return strFiles;
@@ -44,5 +43,26 @@ public class InterfaceController extends InterfaceView {
 
     public static String gerarNomeAleatorio() {
         return String.format("file-%s", Math.random());
+    }
+
+    public static void addComponent(JFrame frame, GridBagLayout gbLayout, GridBagConstraints gbConstraints, Component component, int row, int column, int width, int height) {
+        try {
+            if (height > 1 && height > 1) {
+                gbConstraints.fill = GridBagConstraints.BOTH;
+            } else if (height > 1) {
+                gbConstraints.fill = GridBagConstraints.VERTICAL;
+            } else {
+                gbConstraints.fill = GridBagConstraints.HORIZONTAL;
+            }
+
+            gbConstraints.gridy = row;
+            gbConstraints.gridx = column;
+            gbConstraints.gridwidth = width;
+            gbConstraints.gridheight = height;
+            gbLayout.setConstraints(component, gbConstraints);
+            frame.add(component);
+        } catch (Exception e) {
+            System.err.println("Erro: " + e);
+        }
     }
 }

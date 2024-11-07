@@ -12,16 +12,16 @@ public class TelaDePesquisaController extends TelaDePesquisaView {
         txtNome.setText(nome);
         txtEmail.setText(email);
     }
-        
+
     public static void registrarPesquisa() {
         txtUsuario = txtPesquisa.getText();
     }
 
     public static void pesquisar() {
-        String textoPesquisa =txtPesquisa.getText().trim();
+        String textoPesquisa = txtPesquisa.getText().trim();
         if (textoPesquisa.equals(txtUsuario) == false) {
             limparCampos("");
-            TelaDePesquisaModel.pesquisarModel(txtPesquisa.getText().trim());
+            TelaDePesquisaModel.pesquisarModel(textoPesquisa);
         }
     }
 
@@ -30,7 +30,7 @@ public class TelaDePesquisaController extends TelaDePesquisaView {
     }
 
     public static void registroAnterior() {
-        TelaDePesquisaModel.registroAnteriorModel(txtPesquisa.getText(), txtId.getText(), txtNome.getText(), txtEmail.getText());    
+        TelaDePesquisaModel.registroAnteriorModel(txtPesquisa.getText(), txtId.getText(), txtNome.getText(), txtEmail.getText());
     }
 
     public static void proximoRegistro() {
@@ -51,24 +51,27 @@ public class TelaDePesquisaController extends TelaDePesquisaView {
         btnProximo.setEnabled(false);
         btnUltimo.setEnabled(false);
     }
+
     public static void habilitarVoltar() {
         desabilitarTodos();
         btnPrimeiro.setEnabled(true);
         btnAnterior.setEnabled(true);
     }
+
     public static void habilitarTodos() {
         btnPrimeiro.setEnabled(true);
         btnAnterior.setEnabled(true);
         btnProximo.setEnabled(true);
         btnUltimo.setEnabled(true);
     }
+
     public static void habilitarAvancar() {
         desabilitarTodos();
         btnProximo.setEnabled(true);
         btnUltimo.setEnabled(true);
     }
+
     public static void desabilitarPesquisar() {
         btnPesquisar.setEnabled(false);
     }
-    
 }

@@ -1,7 +1,6 @@
 package view;
+import javax.swing.*;
 import controller.*;
-
-import javax.swing.*; 
 import javax.imageio.*;
 import java.awt.image.*;
 import java.io.*;
@@ -13,7 +12,7 @@ public class InterfaceView extends JFrame {
             BufferedImage bufferedImage = ImageIO.read(imageInputStream);
             frame.setIconImage(bufferedImage);
         } catch (Exception e) {
-            System.err.println("Eroo:" + e);
+            System.err.println("Erro: " + e);
         }
     }
 

@@ -12,13 +12,13 @@ public class TelaDeRemoverController extends TelaDeRemoverView {
                 DefaultComboBoxModel<String> newMod = new DefaultComboBoxModel<String>(ids);
                 cbxId.setModel(newMod);
             }
-        }   
+        }
     }
 
     public static void removerId() {
         TelaDeRemoverModel.removerIdModel(cbxId.getSelectedItem().toString());
     }
-     
+
     public static void limparCampos() {
         txtNome.setText("");
         txtEmail.setText("");
@@ -29,23 +29,23 @@ public class TelaDeRemoverController extends TelaDeRemoverView {
         if (cbxId.getSelectedIndex() > 0) {
             TelaDeRemoverModel.atualizarCamposModel(cbxId.getSelectedItem().toString(), notificar);
         } else {
-            if (notificar == true){
-                lblNotificacoes.setText("Selecione um ID para continuar.");
+            if (notificar == true) {
+                lblNotificacoes.setText("Selecione um id para continuar.");
                 limparCampos();
             }
         }
-    }
+}
 
-    public static void preencherCampos (String nome, String email) {
+    public static void preencherCampos(String nome, String email) {
         txtNome.setText(nome);
         txtEmail.setText(email);
     }
-    
+
     public static void enviarIds(String[] idsTemp) {
         ids = idsTemp;
     }
 
-    public static void notificarUsuario (String txt) {
+    public static void notificarUsuario(String txt) {
         lblNotificacoes.setText(setHtmlFormat(txt));
     }
 }
